@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: info
+
+navent:
+  stream:
+    key: stream5
+  consumer:
+    group: group1

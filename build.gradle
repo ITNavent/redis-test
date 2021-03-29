@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.9.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.navent.realestate'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('testcontainersVersion', "1.15.2")
+}
+
+dependencies {
+	annotationProcessor "org.projectlombok:lombok:1.18.18"
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+	compileOnly 'org.projectlombok:lombok:1.18.18'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.2'
+implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.2'
+	
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
